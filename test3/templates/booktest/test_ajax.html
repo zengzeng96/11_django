@@ -11,20 +11,21 @@
             
             //绑定btnAjax的click事件
             $('#btnAjax').click(function(){
-                alert(1)
+                alert(1);
                 $.ajax({
-                    'url':'/ajax_handle',
+                    'url':'/ajax_handle',//发送ajax请求的地址
                     'type':'get',//默认就是get
                     'dataType':'json',
                     //'async':false,//同步的ajax请求  默认是true  不等回调函数执行就向下执行
+                    // 也就是说这里先输出1 再输出3 再输出2
                 }).success(function(data){
                     //进行处理
-                    alert(2)
+                    alert(2);
                     if (data.res==1){
-                        $('#message').show().html('提示信息')
+                        $('#message').show().html('提示信息');
                     }
                 })
-                alert(3)
+                alert(3);
             })
             
         })

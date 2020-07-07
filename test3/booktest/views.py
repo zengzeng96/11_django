@@ -29,7 +29,7 @@ def index01(request):
     
 def index(request):
     # print(request.method)
-    # print(request.path)#表示请求的页面的完整路径  不包含域名和参数部分
+    print(request.path)#表示请求的页面的完整路径  不包含域名和参数部分
     # print(request.encoding)#如果为None值 则表示浏览器的默认设置 一般为utf-8
 
     # print(request.method)
@@ -45,7 +45,6 @@ def index(request):
 
 # @block_ips
 def show_arg1(request,bid):#捕获参数  位置参数
-
     return HttpResponse(bid)
 
 # @block_ips
@@ -84,8 +83,8 @@ def login_check(request):
     # q['c']的值就是3
     # 他与字典最大的不同就是他可以一个键对应多个值 例如：
     # q=QueryDict('a=1&a=2&a=3&b=4')
-    # q.get('a')==q['a']------>'3'
-    # q.getlist('a')--------->['1','2','3']
+    # q.get('a')==q['a']------>'3'   #只是获取最后一个
+    # q.getlist('a')--------->['1','2','3'] #获取所有的
     username=request.POST.get('username')
     password=request.POST.get('password')
     remember=request.POST.get('remember')
@@ -94,7 +93,7 @@ def login_check(request):
     print('remember:',remember)
     # 2.进行校验
     # 实际开发 根据用户名和密码查找数据库
-    #模拟 假设正确用户名： smart   正确密码：123
+    # 模拟 假设正确用户名： smart   正确密码：123
     if username=='smart' and password=='123':
         #用户名密码正确   跳转到首页
         response=redirect('/index')#他的返回值就是一个httpResponseRedirect对象
@@ -105,9 +104,6 @@ def login_check(request):
         #只要session中有islogin  就认为用户已经登陆
         request.session['islogin']=True
         return response
-
-        
-
     else:
         #用户名或密码错误  跳转到登陆页面
         return redirect('/login')
@@ -116,14 +112,6 @@ def login_check(request):
     # return render(request, template_name)
     # return HttpResponse('ok')
     # request对象的属性
-    '''
-    1.request.POST   保存的时post提交的参数
-
-    2.request.GET   保存的时get提交的参数
-
-    '''
-
-
 # /test_ajax
 # @block_ips
 def ajax_test(request):

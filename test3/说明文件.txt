@@ -1,3 +1,7 @@
 数据库  mysql   bj18  root root  localhost 3306
 url匹配
 登录校验
+
+关于django的错误处理 当这个404错误发生的时候呢 他会默认自动调用自己的模板文件 404
+但是当我们的templates文件夹下有这个404.html文件的时候 他就会调用我们写的这个东西 而不再调用他自己的
+当然这种情况 是在我们将settings文件夹下的debug改为False的时候才生效
