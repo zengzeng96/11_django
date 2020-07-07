@@ -1,0 +1,56 @@
+{% load static %}
+{#获取所有的static静态文件#}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new_blah.css' %}">
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'images/blah.png' %}">
+        <ul class="nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Site</a></li>
+            <li><a href="#">Other</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h2>Article</h2>
+        <ul class="articles">
+            {% for i in ArtiInfo %}
+
+                <li>
+                    <img src="{% static 'images/0001.jpg' %}" width="100" height="91">
+                    <div class="article-info">
+                        <h3><a href="www.sample.com">{{ i.movie_name }}</a></h3>
+                        <p class="meta-info">
+{#                            {% for intro in i.introduce %}#}
+{#                                <span class="meta-cate">{{ intro }}</span><br>#}
+{##}
+{#                                <span class="meta-cate">{{ i.introduce[1] }}</span>#}
+{#                            {% endfor %}#}
+                        </p>
+                        <p class="description">{{ i.describe }}</p>
+
+                    </div>
+                    <div class="rate">
+                        <span class="rate-score">{{ i.star }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="main-content-pagitor">
+{#            <pre 1 of 2 Next>#}
+            {% if ArtiInfo.has_previous %}
+            <a href="?page={{ ArtiInfo.previous_page_number }}">< Pre</a>
+            {% endif %}
+            <span>{{ ArtiInfo.number }} of {{ ArtiInfo.paginator.num_pages }}</span>
+            {% if ArtiInfo.has_next %}
+                <a href="?page={{ ArtiInfo.next_page_number }}">Next></a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; Mugglecoding</p>
+    </div>
+</body>
+</html>
