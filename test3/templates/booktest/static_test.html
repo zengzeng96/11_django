@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>静态文件</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <img src="/static/images/mm.jpg"><br>
+    动态获取static_url,拼接静态文件路径<br>
+    <img src="{% static 'images/mm.jpg'%}">
+</body>
+
+</html>

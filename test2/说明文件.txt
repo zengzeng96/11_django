@@ -1,0 +1,6 @@
+模型管理类#BookInfo.objects
+自关联查询#地区查询
+
+元选项#模型类的表名不依赖应用名 在模型类的下方加入
+     class Meta:
+        db_table = 'bookinfo'  # 指定模型类对应的表名
