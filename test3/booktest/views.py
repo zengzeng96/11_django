@@ -232,6 +232,8 @@ def upload_handle(request):
     # 5.返回
     return HttpResponse('ok')
 
+
+# ************************************分页*********************************************
 # /show_area/页码
 #前端访问的时候需要传递页码
 def show_area(request,pindex):
@@ -264,7 +266,7 @@ def areas(request):
     '''省市县选中案例'''
     return render(request, 'booktest/areas.html')
 
-
+# **************************************省市县选择案例****************************************
 # /prov
 def prov(request):
     '''获取所有省级地区的信息'''
@@ -282,7 +284,7 @@ def city(request,pid):
     '''获取对应省下面的市的信息'''
     # 1.获取pid的下级地区的信息  下面的这两种方式都可以
 
-    # AreaInfo.objects.get(id=pid)
+    # AreaInfo.objects.get(id=pid)#这个是一对多的关系 一个省对应着多个市
     # areas=area.areainfo_set.all()
 
     areas=AreaInfo.objects.filter(aParent__id=pid)

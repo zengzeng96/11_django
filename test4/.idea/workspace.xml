@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23cdab90-7470-4ee3-969a-c79ffbe48834" name="Default Changelist" comment="" />
+    <list default="true" id="23cdab90-7470-4ee3-969a-c79ffbe48834" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test3/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../test3/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/booktest/temp_tags.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/booktest/temp_tags.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +23,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1YU59cLKDEzyJ52Pbd5nbykhIQd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -27,6 +36,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../test3" />
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
@@ -69,6 +79,7 @@
       <workItem from="1582984185383" duration="3748000" />
       <workItem from="1583022629607" duration="5491000" />
       <workItem from="1583206801462" duration="24000" />
+      <workItem from="1594258273034" duration="3567000" />
     </task>
     <servers />
   </component>
@@ -76,17 +87,9 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="121" key="FileChooserDialogImpl" timestamp="1583206823574">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="124" y="54" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1594260761913">
+      <screen x="0" y="0" width="1365" height="737" />
     </state>
-    <state x="463" y="121" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583206823574" />
-    <state x="186" y="8" key="SettingsEditor" timestamp="1582984311145">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="186" y="8" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1582984311145" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1582984541330">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1366.728@0.0.1366.728" timestamp="1582984541330" />
+    <state x="124" y="54" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1365.737@0.0.1365.737" timestamp="1594260761913" />
   </component>
 </project>

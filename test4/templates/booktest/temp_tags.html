@@ -5,30 +5,33 @@
     <meta charset="UTF-8">
     <title>模板标签</title>
     <style>
-    .red {
-        background: red;
-    }
+        .red {
+            background: red;
+        }
 
-    .yellow {
-        background: yellow;
-    }
+        .yellow {
+            background: yellow;
+        }
 
-    .green {
-        background: green;
-    }
+        .green {
+            background: green;
+        }
     </style>
 </head>
 
 <body>
-    <ul>
-        {% for book in books %}
-        {% if book.id <= 2 %} <li class='red'>{{ forloop.counter }}--{{ book.btitle }}</li>
-            {% elif book.id <= 3 %} <li class='yellow'>{{ forloop.counter }}--{{ book.btitle }}</li>
-                {% else %}
-                <li class='green'>{{ forloop.counter }}--{{ book.btitle }}</li>
-                {% endif %}
-                {% endfor %}
-    </ul>
+<ul>
+    {% for book in books %}
+        {% if book.id <= 2 %}
+            <li class='red'>{{ forloop.counter }}--{{ book.btitle }}</li>
+        {% elif book.id <= 3 %}
+            <li class='yellow'>{{ forloop.counter }}--{{ book.btitle }}</li>
+        {% else %}
+            <li class='green'>{{ forloop.counter }}--{{ book.btitle }}</li>
+            <!-- forloop.counter -->
+        {% endif %}
+    {% endfor %}
+</ul>
 </body>
 
 </html>

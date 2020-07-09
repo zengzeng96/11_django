@@ -53,8 +53,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     # 'booktest.middleware.BlockedIPMiddleware',#注册中间件类
     # 'booktest.middleware.TestMiddleware',#注册中间件类
-    'booktest.middleware.ExceptionTest1Middleware',#注册中间件类
-    'booktest.middleware.ExceptionTest2Middleware',#注册中间件类
+    # 'booktest.middleware.ExceptionTest1Middleware',#注册中间件类
+    # 'booktest.middleware.ExceptionTest2Middleware',#注册中间件类
 
 )
 
@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bj18',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': 3306,
     }
