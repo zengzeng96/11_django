@@ -1,4 +1,4 @@
-"""test6 URL Configuration
+"""dailyfresh URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -18,7 +18,11 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^tinymce/', include('tinymce.urls')),#富文本编辑器
-    url(r'^', include('booktest.urls',namespace='booktest')),
+    url(r'^tinymce/', include('tinymce.urls')),
+
+    url(r'^user/', include('user.urls',namespace='user')),
+    url(r'^cart/', include('cart.urls',namespace='cart')),
+    url(r'^order/', include('order.urls',namespace='order')),
+    url(r'^', include('goods.urls',namespace='goods')),
     
 ]

@@ -9,3 +9,5 @@
 - request.session.flush()   数据库中的sessionid值也删除了
 - 删除session中的某个键值    del request.session['键']
 
+- user_ip=request.META['REMOTE_ADDR']#获取浏览器端的ip
+- 

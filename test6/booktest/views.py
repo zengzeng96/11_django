@@ -14,3 +14,8 @@ def get_session(request):
     username=request.session['username']
     age=request.session['age']
     return HttpResponse(username+":"+str(age))
+
+def index(request):
+    user_ip=request.META['REMOTE_ADDR']
+    print(user_ip)
+    return HttpResponse('远端浏览器的ip'+user_ip)
