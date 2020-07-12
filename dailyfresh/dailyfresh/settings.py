@@ -84,7 +84,7 @@ DATABASES = {#配置mysql数据库
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dailyfresh',
-        'HOST':'192.168.176.130',
+        'HOST':'192.168.176.133',
         'USER':'root',
         'PASSWORD':'root',
         'PORT':3306
@@ -132,3 +132,38 @@ EMAIL_HOST_USER = 'zengjia42@126.com'
 EMAIL_HOST_PASSWORD = 'JYYQQCOUMZTBEWJT'
 #收件人看到的发件人
 EMAIL_FROM = '天天生鲜<zengjia42@126.com>'#这个邮箱地址必须与上面的EMAIL_HOST_USER地址一样
+
+# 使用redis_sessions.session包来使得session存储在redis中
+# SESSION_ENGINE = 'redis_sessions.session'
+# SESSION_REDIS_HOST = 'localhost'
+# SESSION_REDIS_PORT = 6379
+# SESSION_REDIS_DB = 2
+# SESSION_REDIS_PASSWORD = ''
+# SESSION_REDIS_PREFIX = 'session'
+
+# 缓存
+# Django的缓存配置
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://192.168.176.133:6379/9",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# 配置session存储
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+#配置登录的url地址
+LOGIN_URL='/user/login'
+
+#设置django的文件存储类
+DEFAULT_FILE_STORAGE='utils.fdfs.storage.FDFSStorage'
+
+# 设置fdfs使用的client——conf文件路径
+FDFS_CLIENT_CONF='./utils/fdfs/client.conf'
+# 设置fdfs服务器上ngix的ip和端口号
+FDFS_URL='http://192.168.176.133:8888/'

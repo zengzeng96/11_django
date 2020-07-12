@@ -6,7 +6,7 @@
 - ```forloop.counter```   循环计数
 
 - 模板语言过滤器
-    ```
+    ```python
     {{ book.btitle|length }}--{{ book.bpub_date|date:'b.d, Y'}}
     1.只有一个参数的过滤器
     book.id|mod
@@ -92,7 +92,7 @@
 
   直接把代码沾过来就行
 
-- url反向解析
+  ## url反向解析
 
   对于需要多次重定向的网页 一旦urls它的url改变的话，那么其余需要重定向到该页面的网站就的网址就都需要重写
 
