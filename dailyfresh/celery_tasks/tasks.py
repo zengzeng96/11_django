@@ -66,7 +66,7 @@ def generate_static_index_html():
         'promotion_banners': promotion_banners
     }
     # 1.加载模板文件
-    temp = loader.get('static_index.html')
+    temp = loader.get_template('static_index.html')
     # 2.定义模板上下文
     # context = RequestContext(request, context)
     # 3.模板渲染
