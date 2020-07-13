@@ -116,6 +116,9 @@ SESSION_CACHE_ALIAS = "default"
 sudo service fdfs_trackerd start
 sudo service fdfs_storaged start
 sudo /usr/local/nginx/sbin/nginx
+
+sudo /usr/local/nginx/sbin/nginx -s reload#重新启动nginx
+
 ```
 
 ### 安装依赖包
@@ -131,3 +134,18 @@ pip freeze > requirements.txt
 
 
 
+### 静态页面的生成ngnix（网站性能的优化，减少数据库查询的次数，防止恶意的攻击）
+
+```python
+#模型管理类
+#celery
+#配置nginx的端口
+```
+
+### 数据缓存（网站性能的优化，减少数据库查询的次数，防止恶意的攻击（DDOS攻击））
+
+把页面上使用到的数据放在缓存中，下次使用先从缓存获取，查不到再去数据库查询
+
+**什么时候需要更新首页的缓存数据**
+
+当管理员后台更新数据库时，需要更新缓存
