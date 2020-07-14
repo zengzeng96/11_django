@@ -30,6 +30,12 @@ ps aux | grep redis#查看redis进程
 redis-cli -h 192.168.176.130 -p 6379#链接远程的redis数据库
 sudo kill -9 进程号#杀死某个进程
 sudo redis-server /etc/redis/redis.conf #指定加载的配置文件 必须以该命令启动redis服务不然的话就会报错
+
+sudo service fdfs_trackerd start
+sudo service fdfs_storaged start
+sudo /usr/local/nginx/sbin/nginx
+
+celery -A celery_tasks.tasks worker -l info -P eventlet
 ```
 
 

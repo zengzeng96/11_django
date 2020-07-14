@@ -16,7 +16,7 @@ import os
 # django.setup()
 # #*******************************设置初始化 必须进行  在任务处理者一端加入（linux端）*********************************
 # 创建一个Celery实例对象
-app = Celery('celery_tasks.tasks', broker='redis://192.168.176.133:6379/8')
+app = Celery('celery_tasks.tasks', broker='redis://192.168.176.134:6379/8')
 
 
 # 1.里面这个字符串是随便写的
@@ -44,6 +44,7 @@ def send_register_active_email(to_email, username, token):
 @app.task
 def generate_static_index_html():
     """产生首页静态页面"""
+    print("**"*20,'windows')
     types = GoodsType.objects.all()
     # 获取首页轮播商品信息
     goods_banner = IndexGoodsBanner.objects.all().order_by('index')  # 数字小的在前

@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0d146db-0bb9-41cc-bbdd-1da349b7330f" name="Default Changelist" comment="" />
+    <list default="true" id="b0d146db-0bb9-41cc-bbdd-1da349b7330f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../dailyfresh/whoosh_index/MAIN_WRITELOCK" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dailyfresh/whoosh_index/MAIN_i02in9vzq7kuz04l.seg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../dailyfresh/whoosh_index/_MAIN_16.toc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test3/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/apps/goods/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/apps/goods/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/apps/goods/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/apps/goods/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/apps/goods/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/apps/goods/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/apps/goods/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/apps/goods/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/celery_tasks/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/celery_tasks/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/dailyfresh/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/dailyfresh/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/templates/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/templates/static_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/templates/static_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/utils/fdfs/client.conf" beforeDir="false" afterPath="$PROJECT_DIR$/../dailyfresh/utils/fdfs/client.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dailyfresh/whoosh_index/_MAIN_0.toc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../test3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../test4/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +38,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1YjhGjHgzgujikq3dRHUs6mlwVb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -26,7 +51,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../15 flask框架" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test3" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -66,6 +91,7 @@
       <updated>1583461816980</updated>
       <workItem from="1583461821045" duration="2858000" />
       <workItem from="1583546544700" duration="86000" />
+      <workItem from="1594650420977" duration="630000" />
     </task>
     <servers />
   </component>
@@ -73,17 +99,9 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="121" key="FileChooserDialogImpl" timestamp="1583546628287">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="464" y="124" key="FileChooserDialogImpl" timestamp="1594689482250">
+      <screen x="0" y="0" width="1365" height="737" />
     </state>
-    <state x="463" y="121" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583546628287" />
-    <state x="186" y="8" key="SettingsEditor" timestamp="1583461852996">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="186" y="8" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583461852996" />
-    <state x="346" y="49" key="search.everywhere.popup" timestamp="1583462061755">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1583462061755" />
+    <state x="464" y="124" key="FileChooserDialogImpl/0.0.1365.737@0.0.1365.737" timestamp="1594689482250" />
   </component>
 </project>

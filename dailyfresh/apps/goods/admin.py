@@ -1,5 +1,5 @@
 from django.contrib import admin
-from goods.models import GoodsType, IndexPromotionBanner,IndexGoodsBanner,IndexTypeGoodsBanner
+from goods.models import GoodsType, IndexPromotionBanner,IndexGoodsBanner,IndexTypeGoodsBanner,GoodsSKU
 from django.core.cache import cache
 
 class BaseModelAdmin(admin.ModelAdmin):
@@ -32,13 +32,15 @@ class IndexPromotionBannerAdmin(BaseModelAdmin):
     pass
 
 class IndexTypeGoodsBannerAdmin(BaseModelAdmin):
-    pass
+    list_display=['id','type_id','sku_id','index','display_type']
 
 class IndexGoodsBannerAdmin(BaseModelAdmin):
     pass
-
+class GoodsSKUAdmin(BaseModelAdmin):
+    list_display=['id','goods_id','type_id','price','unite','desc']
 
 admin.site.register(GoodsType,GoodsTypeAdmin)
 admin.site.register(IndexPromotionBanner, IndexPromotionBannerAdmin)
 admin.site.register(IndexTypeGoodsBanner,IndexTypeGoodsBannerAdmin)
 admin.site.register(IndexGoodsBanner, IndexGoodsBannerAdmin)
+admin.site.register(GoodsSKU, GoodsSKUAdmin)

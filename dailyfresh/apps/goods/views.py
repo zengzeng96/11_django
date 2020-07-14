@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
-from goods.models import GoodsType, IndexGoodsBanner, IndexPromotionBanner, IndexTypeGoodsBanner, GoodsSKU
-from django_redis import get_redis_connection
-from django.views.generic import View
-from order.models import OrderGoods
-
 from django.core.cache import cache
 from django.core.paginator import Paginator
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect, render
+from django.views.generic import View
+from django_redis import get_redis_connection
+
+from goods.models import (GoodsSKU, GoodsType, IndexGoodsBanner,
+                          IndexPromotionBanner, IndexTypeGoodsBanner)
+from order.models import OrderGoods
 
 
 # Create your views here.
@@ -18,13 +19,15 @@ class IndexView(View):
         """显示首页"""
         # 尝试从缓存中获取数据
         context = cache.get('index_page_data')
-        if context is None:
+        if context is  None:
             # 缓存中没有数据
             print("***" * 8, "设置缓存", "***" * 8)
             # 获取首页商品的种类信息
             types = GoodsType.objects.all()
             # 获取首页轮播商品信息
             goods_banner = IndexGoodsBanner.objects.all().order_by('index')  # 数字小的在前
+            # for banner in goods_banner:
+            #     print(banner.)
             # 获取首页促促销活动信息
             promotion_banners = IndexPromotionBanner.objects.all().order_by('index')
             # 获取首页商品分类商品展示信息
@@ -32,15 +35,17 @@ class IndexView(View):
             for type in types:  # GoodsType对象
                 # 获取type种类首页分类商品的有图片展示信息
                 image_banners = IndexTypeGoodsBanner.objects.filter(type=type, display_type=1).order_by('index')
+
                 # 动态给对象增加属性 分别保存首页分类展示的图片和文字展示信息
                 type.image_banners = image_banners
                 # 获取type种类首页分类商品的有文字展示信息
                 title_banners = IndexTypeGoodsBanner.objects.filter(type=type, display_type=0).order_by('index')
                 type.title_banners = title_banners
+                
             # 上面的信息都是一样的 为他们设置缓存
             context = {
                 'types': types,
-                'goods_banner': goods_banner,
+                'goods_banners': goods_banner,
                 # 获取首页促促销活动信息
                 'promotion_banners': promotion_banners}
             # 设置缓存
@@ -58,6 +63,7 @@ class IndexView(View):
             cart_count = conn.hlen(cart_key)
         # 组织模板上下文
         context.update(cart_count=cart_count)  # 更新字典 将数据加入字典
+        print('%'*10,context['goods_banners'])
         return render(request, 'index.html', context=context)
 
 
@@ -69,18 +75,22 @@ class DetailView(View):
     def get(self, request, goods_id):
         """显示详情页"""
         try:
-            sku = GoodsSKU.objects.get(id=goods_id)
+            sku = GoodsSKU.objects.get(id=goods_id)#在详情类商品查找详情商品
         except GoodsSKU.DoesNotExist:
             # 商品不存在
             return redirect(reverse('goods:index'))
         # 获取商品的分类信息
-        types = GoodsType.objects.all()
+        print('*'*30,'商品详情页')
+        types = GoodsType.objects.all()#商品的大类信息
         # 获取商品的评论信息
         sku_orders = OrderGoods.objects.filter(sku=sku).exclude(comment='')
-        # 获取新品推荐
+        # 获取新品推荐  同一个大类  都是水果
         new_skus = GoodsSKU.objects.filter(type=sku.type).order_by('-create_time')[:2]  # 只获取两个新品推荐
-        # 获取同一个SPU其他规格的商品
-        same_spu_skus = GoodsSKU.objects.filter(goods=sku.goods).exclude(id=goods_id)
+
+
+        # 获取同一个SPU其他规格的商品   同一个中类   都是草莓
+        same_spu_skus = GoodsSKU.objects.filter(goods=sku.goods).exclude(id=goods_id)#同一个中类的商品 比如都是苹果
+        # 红苹果 青苹果
 
         # 购物车
         user = request.user

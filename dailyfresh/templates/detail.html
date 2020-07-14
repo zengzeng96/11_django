@@ -1,4 +1,4 @@
-{% extends 'base_detail_list' %}
+{% extends 'base_detail_list.html' %}
 {% load staticfiles %}
 {% block title %}天天生鲜-商品详情{% endblock title %}
 
@@ -19,10 +19,8 @@
             <h3>{{ sku.name }}</h3>
             <p>{{ sku.desc }}</p>
             <div class="prize_bar">
-
-
                 <span class="show_pirze">¥<em>{{ sku.price }}</em></span>
-                <span class="show_unit">单  位：{{ sku.unite }}g</span>
+                <span class="show_unit">单  位：{{ sku.unite }}</span>
             </div>
             <div class="goods_num clearfix">
                 <div class="num_name fl">数 量：</div>
@@ -37,7 +35,10 @@
                 <p>其他规格：</p>
                 <ul>
                     {% for sku in same_spu_skus %}
+                        {#                        都是同一个中类   都是草莓#}
                         <li><a href="{% url 'goods:detail' sku.id %}">{{ sku.name }}</a></li>
+                    {% empty %}
+                        无其他规格的此中类产品
                     {% endfor %}
                 </ul>
 
@@ -52,12 +53,14 @@
         </div>
     </div>
 
+    {#    新品推荐#}
     <div class="main_wrap clearfix">
         <div class="l_wrap fl clearfix">
             <div class="new_goods">
                 <h3>新品推荐</h3>
                 <ul>
                     {% for sku in new_skus %}
+                        {#                        都是同一个大类   都是水果#}
                         <li>
                             <a href="{% url 'goods:detail' sku.id %}"><img src="{{ sku.image.url }}"></a>
                             <h4><a href="{% url 'goods:detail' sku.id %}">{{ sku.name }}</a></h4>
@@ -104,21 +107,28 @@
 {% endblock bottom %}
 {% block bottomfiles %}
 
-    <script type="text/javascript" src="{% static 'js/jquery-1.12.2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
     <script type="text/javascript">
-        update_goods_amount()
+        update_goods_amount();//调用该函数
 
         //计算商品的总价
-        function update_goods_amount() {
+        function update_goods_amount() {//定义该函数
             {#获取商品的价格和数量#}
             price = $('.show_pirze').children('em').text();
             count = $('.num_show').val();
+            {#console.log(price)#}
+            {#console.log(count);#}
+            {#console.log(typeof(price));#}
+            {#console.log(typeof(count));#}
             {#计算商品的总价#}
             price = parseFloat(price);
             count = parseInt(count);
+            {#console.log('**********************************************');#}
+            {#console.log(typeof(price));#}
+            {#console.log(typeof(count));#}
             amount = price * count;
             {#设置商品的总价#}
-            $('.total').children('em').text(amount.toFixed(2) + '元')
+            $('.total').children('em').text(amount.toFixed(2) + '元');
             {#转换成小数并保留两位有效数字#}
 
         }
@@ -177,6 +187,8 @@
             sku_id = $(this).attr('sku_id');
             count = $('.num_show').val();
             csrf = $('input[name="csrfmiddlewaretoken"]').val();
+            console.log('*****',csrf,'*****')
+
             {#//组织参数#}
             parms = {
                 'sku_id': sku_id,
@@ -185,7 +197,12 @@
             };
             {#alert(sku_id,count);#}
             {#发起ajax  post  请求  /cart/add  传低参数#}
-            $.ajax('/cart/add', parms, function (data) {
+            $.ajax({
+                'url':'/cart/add',
+                'type':'post',
+                'data':parms,
+                'dataType':'json'//期望的返回的数据格式
+            }).success(function (data) {
                 if (data.res == 5) {
                     $(".add_jump").css({'left': $add_y + 80, 'top': $add_x + 10, 'display': 'block'})
                     {#添加成功#}
@@ -205,7 +222,6 @@
                     alert(data.errmsg)
                 }
             })
-
 
         })
     </script>

@@ -12,7 +12,7 @@ class GoodsType(BaseModel):
 
     class Meta:
         db_table = 'df_goods_type'
-        verbose_name = '商品种类'
+        verbose_name = '商品种类大类'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -36,9 +36,13 @@ class GoodsSKU(BaseModel):
     sales = models.IntegerField(default=0, verbose_name='商品销量')
     status = models.SmallIntegerField(default=1, choices=status_choices, verbose_name='商品状态')
 
+    def __str__(self):#
+        # 而是显式每个对象的atitle属性
+        return self.name
+
     class Meta:
         db_table = 'df_goods_sku'
-        verbose_name = '商品'
+        verbose_name = '具体商品详情'
         verbose_name_plural = verbose_name
 
 
@@ -48,9 +52,12 @@ class Goods(BaseModel):
     # 富文本类型:带有格式的文本
     detail = HTMLField(blank=True, verbose_name='商品详情')
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'df_goods'
-        verbose_name = '商品SPU'
+        verbose_name = '商品SPU中类'
         verbose_name_plural = verbose_name
 
 
@@ -64,12 +71,14 @@ class GoodsImage(BaseModel):
         verbose_name = '商品图片'
         verbose_name_plural = verbose_name
 
-
+# &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&首页相关的模型类##############################################
 class IndexGoodsBanner(BaseModel):
     '''首页轮播商品展示模型类'''
-    sku = models.ForeignKey('GoodsSKU', verbose_name='商品')
+    sku = models.ForeignKey('GoodsSKU', verbose_name='首页轮播商品')
     image = models.ImageField(upload_to='banner', verbose_name='图片')
     index = models.SmallIntegerField(default=0, verbose_name='展示顺序')
+    def __str__(self):
+        return self.sku.name
 
     class Meta:
         db_table = 'df_index_banner'
@@ -89,9 +98,12 @@ class IndexTypeGoodsBanner(BaseModel):
     display_type = models.SmallIntegerField(default=1, choices=DISPLAY_TYPE_CHOICES, verbose_name='展示类型')
     index = models.SmallIntegerField(default=0, verbose_name='展示顺序')
 
+    def __str__(self):
+        return self.type.name+'--'+self.sku.name#大类
+
     class Meta:
         db_table = 'df_index_type_goods'
-        verbose_name = "主页分类展示商品"
+        verbose_name = "首页分类展示商品"
         verbose_name_plural = verbose_name
 
 
@@ -101,8 +113,10 @@ class IndexPromotionBanner(BaseModel):
     url = models.CharField(max_length=256,verbose_name='活动链接')
     image = models.ImageField(upload_to='banner', verbose_name='活动图片')
     index = models.SmallIntegerField(default=0, verbose_name='展示顺序')
+    def __str__(self):
+        return self.name#活动名称
 
     class Meta:
         db_table = 'df_index_promotion'
-        verbose_name = "主页促销活动"
+        verbose_name = "首页促销活动"
         verbose_name_plural = verbose_name
