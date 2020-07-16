@@ -11,7 +11,7 @@
             {% for addr in addrs %}
 
                 <dd><input type="radio" name="addr_id" value="{{ addr.id }}"
-                           {% if addr.is_default %}checked{% endif %}checked="">{{ addr.addr }} （{{ addr.receiver }}
+                           {% if addr.is_default %}checked{% endif %}>{{ addr.addr }} （{{ addr.receiver }}
                     收） {{ addr.phone }}</dd>
             {% endfor %}
         </dl>
@@ -89,39 +89,40 @@
     <script type="text/javascript">
         $('#order_btn').click(function () {
 
-            //获取用户选择的地址的id  支付方式 以及要购买的商品的id
-            addr_id = $('input[name="addr_id"]:checked').val();//收获地址
-            pay_method = $('input[name="pay_style"]:checked').val();//支付方式
-            sku_ids = $(this).attr('sku_ids');//要购买的商品列表
-            csrf = $('input[name="csrfmiddlewaretoken"]').val();
-            //组织参数
-            params = {
-                'addr_id': addr_id,
-                'pay_method': pay_method,
-                'sku_ids': sku_ids,
-                'csrfmiddlewaretoken': csrf
-            };
-            {#alert(addr_id + '-'+pay_method+ '--'+ sku_ids +'--'+ csrf);#}
-            //发起ajax请求 post请求  /order/commit  传递得参数  addr_id  pay_method  sku_ids csrfmiddlewaretoken
-            $.post('/order/commit',params,function (data) {
-                if (data.res == 5){
-                    //订单创建成功
-                    alert('创建成功');
-                }
-            })
+                //获取用户选择的地址的id  支付方式 以及要购买的商品的id
+                addr_id = $('input[name="addr_id"]:checked').val();//收获地址
+                pay_method = $('input[name="pay_style"]:checked').val();//支付方式
+                sku_ids = $(this).attr('sku_ids');//要购买的商品列表
+                csrf = $('input[name="csrfmiddlewaretoken"]').val();
+                //组织参数
+                params = {
+                    'addr_id': addr_id,
+                    'pay_method': pay_method,
+                    'sku_ids': sku_ids,
+                    'csrfmiddlewaretoken': csrf
+                };
+                {#alert(addr_id + '-'+pay_method+ '--'+ sku_ids +'--'+ csrf);#}
+                //发起ajax请求 post请求  /order/commit  传递得参数  addr_id  pay_method  sku_ids csrfmiddlewaretoken
+                $.post('/order/commit', params, function (data) {
+                    if (data.res == 5) {
+                        //订单创建成功
+                        localStorage.setItem('order_finish', 2);
 
-            //localStorage.setItem('order_finish', 2);
+                        $('.popup_con').fadeIn('fast', function () {
 
-            //$('.popup_con').fadeIn('fast', function () {
+                            setTimeout(function () {
+                                $('.popup_con').fadeOut('fast', function () {
+                                    window.location.href = '/user/order/1';
+                                });
+                            }, 3000)
+                        });
+                    } else {
+                        alert('创建失败');
+                    }
+                })
 
-            //setTimeout(function () {
-            //$('.popup_con').fadeOut('fast', function () {
-            //   window.location.href = 'index.html';
-            //});
-            //}, 3000)
 
-            //{);}
-
-        })
+            }
+        )
     </script>
 {% endblock bottomfiles %}

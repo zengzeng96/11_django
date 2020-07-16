@@ -10,11 +10,13 @@ from django.views.generic import View
 from django_redis import get_redis_connection
 from itsdangerous import SignatureExpired
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
+from django.core.paginator import Paginator
 from celery_tasks.tasks import send_register_active_email
 from goods.models import GoodsSKU
 from user.models import Address, User
 from utils.mixin import LoginRequiredMixin
+from order.models import OrderInfo, OrderGoods
+
 
 # Create your views here.
 
@@ -233,8 +235,6 @@ class LogoutView(View):
 
 
 # /user
-
-
 class UserInfoView(LoginRequiredMixin, View):
     """用户中心-信息页"""
 
@@ -247,28 +247,27 @@ class UserInfoView(LoginRequiredMixin, View):
         # request.user.is_authenticated()
         # 除了我们手动给模版传递的变量之外 django框架会把request.user也传给模版文件
         # 获取用户的个人信息
-        user=requset.user
-        address=Address.objects.get_default_address(user)
-        
+        user = requset.user
+        address = Address.objects.get_default_address(user)
 
         # 获取用户的历史浏览记录
         # from redis import StrictRedis
         # sr=StrictRedis(host='192.168.176.132',port='6379',db=9)
-        con=get_redis_connection('default')
-        history_key='history_%d'%user.id
-        #获取用户最新浏览的5条商品的id
-        sku_ids=con.lrange(history_key,0,4)
+        con = get_redis_connection('default')
+        history_key = 'history_%d' % user.id
+        # 获取用户最新浏览的5条商品的id
+        sku_ids = con.lrange(history_key, 0, 4)
         # 从数据库中查询用户浏览的商品的具体信息
         # goods_li=GoodsSKU.objects.filter(id__in=sku_ids)
-        goods_li=[]
+        goods_li = []
         # 遍历获取用户浏览的商品信息
         for id in sku_ids:
-            goods=GoodsSKU.objects.get(id=id)
+            goods = GoodsSKU.objects.get(id=id)
             goods_li.append(goods)
-        #组织上下文
-        context={'page': 'user',
-                'address':address,
-                'goods_li':goods_li}
+        # 组织上下文
+        context = {'page': 'user',
+                   'address': address,
+                   'goods_li': goods_li}
         return render(requset, 'user_center_info.html', context=context)
 
 
@@ -278,11 +277,54 @@ class UserInfoView(LoginRequiredMixin, View):
 class UserOrderView(LoginRequiredMixin, View):
     """用户中心-订单页"""
 
-    def get(self, requset):
+    def get(self, request, page):
         '''显示'''
         # 获取用户的订单信息
-        # 获取用户的历史浏览记录
-        return render(requset, 'user_center_order.html', {'page': 'order'})
+        user = request.user
+        orders = OrderInfo.objects.filter(user=user).order_by('-create_time')
+        # 遍历获取订单的商品信息
+        for order in orders:
+            order_skus = OrderGoods.objects.filter(order_id=order.order_id)
+            # 遍历计算商品的小计
+            for order_sku in order_skus:
+                amount = order_sku.count * order_sku.price
+                # 动态给order_sku增加amount属性
+                order_sku.amount = amount
+            #动态给对象增加属性 保存订单状态标题
+            order.status_name = OrderInfo.ORDER_STATUS[order.order_status]
+            # 动态给order增加属性，保存订单的商品信息
+            order.order_skus = order_skus
+
+        # 分页
+        paginator = Paginator(orders, 1)
+        # 处理页码
+        try:
+            page = int(page)
+        except Exception as e:
+            page = 1
+        if page > paginator.num_pages:
+            page = 1
+        # 获取第page页的实例对象
+        order_page = paginator.page(page)
+        # todo:进行页码的控制 页面上最多显示5个页码
+        # 1.总页数小于5页 页面上显示所有页码
+        # 2.如果当前页是前三页的话   1 2 3 4 5
+        # 3.如果当期页是后三页       n-4 n-3 n-2 n-1 n
+        # 4.排除上面的三种情况 显示当前页的前两页 当前页的后两页
+        num_pages = paginator.num_pages
+
+        if num_pages < 5:
+            pages = range(1, num_pages + 1)
+        elif page <= 3:
+            pages = range(1, 6)
+        elif num_pages - page <= 2:
+            pages = range(num_pages - 4, num_pages + 1)
+        else:
+            pages = range(page - 2, page + 3)
+        # 组织上下文
+        context = {'order_page': order_page, 'pages': pages, 'page': 'order'}
+        # 使用模板
+        return render(request, 'user_center_order.html', context)
 
 
 # /user/address

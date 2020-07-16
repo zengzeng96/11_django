@@ -19,6 +19,7 @@ class AreaInfo(models.Model):
         return self.atitle
     title.admin_order_field = 'atitle'  # 函数指定返回的数据也可以通过单击最上面的标题栏进行排序
     # 没有上面这一行函数定义的数据就不能进行点击排序
+    
     title.short_description = '地区名称'  # 指定函数定义返回的数据字段标题的名称
 
     def parent(self):
