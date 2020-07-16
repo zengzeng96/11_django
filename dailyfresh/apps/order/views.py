@@ -15,9 +15,8 @@ import os
 
 # Create your views here.
 # 配置alipay地址
-private_path = os.path.join(settings.BASE_DIR, 'apps\\order\\app_private_key.pem')
-public_path = os.path.join(settings.BASE_DIR, 'apps\\order\\alipay_public_key.pem')
-
+private_path = os.path.join(settings.BASE_DIR, 'apps/order/app_private_key.pem')
+public_path = os.path.join(settings.BASE_DIR, 'apps/order/alipay_public_key.pem')
 
 # 获取公私钥字符串
 app_private_key_string = open(private_path).read()
@@ -369,10 +368,12 @@ class OrderPayView(View):
         pay_url = 'https://openapi.alipaydev.com/gateway.do?' + order_string
         return JsonResponse({'res': 3, 'pay_url': pay_url})
 
+
 # /order/check
 class CheckPayView(View):
     """查询订单是否支付成功"""
-    def post(self,request):
+
+    def post(self, request):
         # 用户是否登录
         user = request.user
         if not user.is_authenticated():
@@ -400,9 +401,9 @@ class CheckPayView(View):
             sign_type="RSA2",
             debug=True  # 上线则为False  沙箱为True
         )
-        #调用支付宝的交易查询接口
+        # 调用支付宝的交易查询接口
         while True:
-            response=alipay.api_alipay_trade_query(order_id)#下面就是他的返回结果
+            response = alipay.api_alipay_trade_query(order_id)  # 下面就是他的返回结果
             '''
             "alipay_trade_query_response": {
                 "trade_no": "2017032121001004070200176844",#支付宝交易号
@@ -427,33 +428,35 @@ class CheckPayView(View):
                 "total_amount": "20.00"
               }
             '''
-            code=response.get('code')
-            trade_status=response.get('trade_status')
-            if code == '10000' and trade_status=='TRADE_SUCCESS':
-                #支付成功
+            code = response.get('code')
+            trade_status = response.get('trade_status')
+            if code == '10000' and trade_status == 'TRADE_SUCCESS':
+                # 支付成功
                 # 获取支付宝交易号
                 trade_no = response.get('trade_no')
                 # 更新订单状态
-                order.trade_no=trade_no
-                order.order_status=4
+                order.trade_no = trade_no
+                order.order_status = 4
                 order.save()
                 # 返回结果
-                return JsonResponse({'res':3,'message':'支付成功'})
-            elif code=='40004' or (code == '10000' and trade_status == 'WAIT_BUYER_PAY'):
-                #等待买家付款
+                return JsonResponse({'res': 3, 'message': '支付成功'})
+            elif code == '40004' or (code == '10000' and trade_status == 'WAIT_BUYER_PAY'):
+                # 等待买家付款
                 # 业务处理失败 可能一会儿就会成功
                 import time
                 time.sleep(5)
                 continue
             else:
-                #支付出错
-                print('*'*20,code,'   ',trade_status)
-                return JsonResponse({'res':4,'message':'支付失败'})
+                # 支付出错
+                print('*' * 20, code, '   ', trade_status)
+                return JsonResponse({'res': 4, 'message': '支付失败'})
+
 
 # 订单的评论
 # /order/commit/24242424322
 class CommentView(LoginRequiredMixin, View):
     """订单评论"""
+
     def get(self, request, order_id):
         """提供评论页面"""
         user = request.user
@@ -472,7 +475,7 @@ class CommentView(LoginRequiredMixin, View):
         order_skus = OrderGoods.objects.filter(order_id=order_id)
         for order_sku in order_skus:
             # 计算商品的小计
-            amount = order_sku.count*order_sku.price
+            amount = order_sku.count * order_sku.price
             # 动态给order_sku增加属性amount,保存商品小计
             order_sku.amount = amount
         # 动态给order增加属性order_skus, 保存订单商品信息
@@ -499,9 +502,9 @@ class CommentView(LoginRequiredMixin, View):
         # 循环获取订单中商品的评论内容
         for i in range(1, total_count + 1):
             # 获取评论的商品的id
-            sku_id = request.POST.get("sku_%d" % i) # sku_1 sku_2
+            sku_id = request.POST.get("sku_%d" % i)  # sku_1 sku_2
             # 获取评论的商品的内容
-            content = request.POST.get('content_%d' % i, '') # cotent_1 content_2 content_3
+            content = request.POST.get('content_%d' % i, '')  # cotent_1 content_2 content_3
             try:
                 order_goods = OrderGoods.objects.get(order=order, sku_id=sku_id)
             except OrderGoods.DoesNotExist:
@@ -510,7 +513,7 @@ class CommentView(LoginRequiredMixin, View):
             order_goods.comment = content
             order_goods.save()
 
-        order.order_status = 5 # 已完成
+        order.order_status = 5  # 已完成
         order.save()
 
         return redirect(reverse("user:order", kwargs={"page": 1}))

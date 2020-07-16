@@ -24,8 +24,8 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'u88t9&!3!&jjkp-#cs*w&@d@ir*0jcejka!z52&)z*&=e=v4))'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 # 当设置了DEBUG为False的时候 ALLOEWED_HOSTS就必须要设置了
 
 
@@ -84,7 +84,7 @@ DATABASES = {  # 配置mysql数据库
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dailyfresh',
-        'HOST': '192.168.176.134',
+        'HOST': 'localhost',
         'USER': 'root',
         'PASSWORD': 'root',
         'PORT': 3306
